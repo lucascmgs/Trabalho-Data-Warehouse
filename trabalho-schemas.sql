@@ -2,21 +2,9 @@ DROP SCHEMA IF EXISTS trabalhodtw;
 CREATE SCHEMA trabalhodtw;
 USE trabalhodtw;
 
-CREATE TABLE aluguel (
-    aluguel_id INT NOT NULL,
-    valor_pago DECIMAL NOT NULL,
-    dias_aluguel INT NOT NULL,
-    id_data_pagamento INT NOT NULL,
-    id_data_retirada INT NOT NULL,
-    id_data_devolucao INT NOT NULL,
-    PRIMARY KEY (aluguel_id),
-    CONSTRAINT fk_data_pagamento FOREIGN KEY (id_data_pagamento) REFERENCES adata (data_id),
-    CONSTRAINT fk_data_retirada FOREIGN KEY (id_data_retirada) REFERENCES adata (data_id),
-    CONSTRAINT fk_data_devolucao FOREIGN KEY (id_data_devolucao) REFERENCES adata (data_id),
-);
 
 
-CREATE TABLE adata (
+CREATE TABLE data (
     data_id INT NOT NULL,
     dia INT NOT NULL,
     mes INT NOT NULL,
@@ -24,9 +12,11 @@ CREATE TABLE adata (
     trimestre INT NOT NULL,
     dia_da_semana INT NOT NULL,
     fim_de_semana BOOLEAN NOT NULL,
-    PRIMARY KEY (data_id),
+    PRIMARY KEY (data_id)
 
 );
+
+
 CREATE TABLE cliente (
     cliente_id INT NOT NULL,
     PRIMARY KEY (cliente_id)
@@ -52,3 +42,16 @@ CREATE TABLE filme (
 );
 
 
+
+CREATE TABLE aluguel (
+    aluguel_id INT NOT NULL,
+    valor_pago DECIMAL NOT NULL,
+    dias_aluguel INT NOT NULL,
+    id_data_pagamento INT NOT NULL,
+    id_data_retirada INT NOT NULL,
+    id_data_devolucao INT NOT NULL,
+    PRIMARY KEY (aluguel_id),
+    CONSTRAINT fk_data_pagamento FOREIGN KEY (id_data_pagamento) REFERENCES data (data_id),
+    CONSTRAINT fk_data_retirada FOREIGN KEY (id_data_retirada) REFERENCES data (data_id),
+    CONSTRAINT fk_data_devolucao FOREIGN KEY (id_data_devolucao) REFERENCES data (data_id)
+);
