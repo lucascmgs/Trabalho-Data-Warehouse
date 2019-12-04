@@ -11,7 +11,7 @@ CREATE TABLE Cliente (
     email VARCHAR(100) NOT NULL,
     endereco_1 VARCHAR(50) NOT NULL,
     endereco_2 VARCHAR(50) DEFAULT NULL,
-    distrito VARCHAR(20) NOT NULL,
+    distrito VARCHAR(20) DEFAULT NULL,
     cidade VARCHAR(50) NOT NULL,
     codigo_postal VARCHAR(10) DEFAULT NULL,
     telefone VARCHAR(20) NOT NULL
