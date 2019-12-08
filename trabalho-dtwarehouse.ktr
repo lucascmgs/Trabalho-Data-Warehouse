@@ -478,7 +478,7 @@
       </attribute>
       <attribute>
         <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>N</attribute>
+        <attribute>Y</attribute>
       </attribute>
       <attribute>
         <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
@@ -533,7 +533,7 @@
       </attribute>
       <attribute>
         <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>N</attribute>
+        <attribute>Y</attribute>
       </attribute>
       <attribute>
         <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
@@ -548,7 +548,7 @@
   <order>
     <hop>
       <from>Entrada Pagamento</from>
-      <to>Sort by rental key (payment)</to>
+      <to>Sort por rental id (pagamento)</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -563,37 +563,37 @@
     </hop>
     <hop>
       <from>Merge join</from>
-      <to>Sort rows</to>
+      <to>sort por address id</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Entrada Endereço</from>
-      <to>Sort rows 2</to>
+      <to>Sort por address id (endereço)</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows</from>
+      <from>sort por address id</from>
       <to>Merge join 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows 2</from>
+      <from>Sort por address id (endereço)</from>
       <to>Merge join 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Concat fields</from>
-      <to>Select values</to>
+      <to>Filtrar propriedades do cliente</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Select values</from>
-      <to>Sort rows 4</to>
+      <from>Filtrar propriedades do cliente</from>
+      <to>Sort por nome do cliente</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows 4</from>
-      <to>Unique rows</to>
+      <from>Sort por nome do cliente</from>
+      <to>Nomes de clientes unicos</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -612,8 +612,8 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Unique rows</from>
-      <to>Table output</to>
+      <from>Nomes de clientes unicos</from>
+      <to>Cliente Pronto</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -639,6 +639,186 @@
     <hop>
       <from>Merge join 3</from>
       <to>Concat fields</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Concat fields</from>
+      <to>Filtro para criação de datas</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filtro para criação de datas</from>
+      <to>Sort rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows</from>
+      <to>Merge join 4</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort por rental id (pagamento)</from>
+      <to>Merge join 4</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Merge join 4</from>
+      <to>Calcula duração do aluguel</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Calcula duração do aluguel</from>
+      <to>Separa data retirada</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Separa data retirada</from>
+      <to>Calcula se data de retirada é fim de semana</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Calcula se data de retirada é fim de semana</from>
+      <to>Sort por data de retirada</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort por data de retirada</from>
+      <to>Datas de retiradas únicas</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Datas de retiradas únicas</from>
+      <to>SK_Data_Retirada</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>SK_Data_Retirada</from>
+      <to>Data de retirada pronta</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>SK_Data_Retirada</from>
+      <to>Extrai SK da data de retirada</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Separa data retorno</from>
+      <to>Calcula se data de retorno é fim de semana</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Calcula se data de retorno é fim de semana</from>
+      <to>Sort por data de retorno</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>SK_Data_Retorno</from>
+      <to>Extrai SK da data de retorno</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort por data de retorno</from>
+      <to>Datas de retorno únicas</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Datas de retorno únicas</from>
+      <to>SK_Data_Retorno</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Calcula duração do aluguel</from>
+      <to>Separa data retorno</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Separa data Pagamento</from>
+      <to>Calcula se data de pagamento é fim de semana</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Calcula se data de pagamento é fim de semana</from>
+      <to>Sort por data de pagamento</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>SK_Data_Retorno</from>
+      <to>Data de retorno pronta</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>SK_Data_Pagamento</from>
+      <to>Extrai SK da data de pagamento</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>SK_Data_Pagamento</from>
+      <to>Data de pagamento pronta</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Datas de pagamento únicas</from>
+      <to>SK_Data_Pagamento</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort por data de pagamento</from>
+      <to>Datas de pagamento únicas</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Calcula duração do aluguel</from>
+      <to>Separa data Pagamento</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Calcula duração do aluguel</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Sort por data de pagamento (Fato)</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Extrai SK da data de pagamento</from>
+      <to>Junta FK data de pagamento</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort por data de pagamento (Fato)</from>
+      <to>Junta FK data de pagamento</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Junta FK data de pagamento</from>
+      <to>Sort por data de retorno (Fato)</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Extrai SK da data de retorno</from>
+      <to>Junta FK data de retorno</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort por data de retorno (Fato)</from>
+      <to>Junta FK data de retorno</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Junta FK data de retorno</from>
+      <to>Sort por data de retirada (fato)</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Extrai SK da data de retirada</from>
+      <to>Junta FK data de retirada</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort por data de retirada (fato)</from>
+      <to>Junta FK data de retirada</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -723,8 +903,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>944</xloc>
-      <yloc>224</yloc>
+      <xloc>896</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -825,7 +1005,7 @@ FROM address
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
+      <xloc>320</xloc>
       <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
@@ -859,8 +1039,8 @@ FROM film
       </output>
     </remotesteps>
     <GUI>
-      <xloc>96</xloc>
-      <yloc>624</yloc>
+      <xloc>80</xloc>
+      <yloc>688</yloc>
       <draw>N</draw>
     </GUI>
   </step>
@@ -893,8 +1073,8 @@ FROM staff
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>672</yloc>
+      <xloc>64</xloc>
+      <yloc>736</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -927,8 +1107,8 @@ FROM language
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>592</yloc>
+      <xloc>64</xloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -961,8 +1141,8 @@ FROM store
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>736</yloc>
+      <xloc>64</xloc>
+      <yloc>800</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -995,7 +1175,7 @@ FROM payment
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
+      <xloc>64</xloc>
       <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1078,8 +1258,8 @@ FROM payment
       <schema_name/>
     </partitioning>
     <join_type>INNER</join_type>
-    <step1>Sort rows</step1>
-    <step2>Sort rows 2</step2>
+    <step1>sort por address id</step1>
+    <step2>Sort por address id (endereço)</step2>
     <keys_1>
       <key>address_id</key>
     </keys_1>
@@ -1095,7 +1275,7 @@ FROM payment
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
+      <xloc>656</xloc>
       <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1129,7 +1309,7 @@ FROM payment
       </output>
     </remotesteps>
     <GUI>
-      <xloc>848</xloc>
+      <xloc>896</xloc>
       <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1170,7 +1350,7 @@ FROM payment
     </GUI>
   </step>
   <step>
-    <name>Select values</name>
+    <name>Filtrar propriedades do cliente</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -1183,12 +1363,15 @@ FROM payment
     <fields>
       <field>
         <name>cliente_id</name>
+        <rename/>
       </field>
       <field>
         <name>nome_completo</name>
+        <rename/>
       </field>
       <field>
         <name>email</name>
+        <rename/>
       </field>
       <field>
         <name>address</name>
@@ -1222,12 +1405,12 @@ FROM payment
     </remotesteps>
     <GUI>
       <xloc>1056</xloc>
-      <yloc>224</yloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Sort by rental key (payment)</name>
+    <name>Sort por rental id (pagamento)</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1353,7 +1536,7 @@ FROM payment
     </GUI>
   </step>
   <step>
-    <name>Sort rows</name>
+    <name>sort por address id</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1395,7 +1578,7 @@ FROM payment
     </GUI>
   </step>
   <step>
-    <name>Sort rows 2</name>
+    <name>Sort por address id (endereço)</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1437,41 +1620,7 @@ FROM payment
     </GUI>
   </step>
   <step>
-    <name>Sort rows 3</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>952</xloc>
-      <yloc>836</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Sort rows 4</name>
+    <name>Sort por nome do cliente</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1507,8 +1656,8 @@ FROM payment
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1056</xloc>
-      <yloc>304</yloc>
+      <xloc>1280</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1549,7 +1698,7 @@ FROM payment
       </output>
     </remotesteps>
     <GUI>
-      <xloc>704</xloc>
+      <xloc>752</xloc>
       <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1591,13 +1740,13 @@ FROM payment
       </output>
     </remotesteps>
     <GUI>
-      <xloc>704</xloc>
+      <xloc>752</xloc>
       <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Table output</name>
+    <name>Cliente Pronto</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1667,13 +1816,13 @@ FROM payment
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1264</xloc>
-      <yloc>304</yloc>
+      <xloc>1616</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Unique rows</name>
+    <name>Nomes de clientes unicos</name>
     <type>Unique</type>
     <description/>
     <distribute>Y</distribute>
@@ -1702,8 +1851,1555 @@ FROM payment
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1136</xloc>
-      <yloc>304</yloc>
+      <xloc>1472</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filtro para criação de datas</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>rental_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>rental_date</name>
+        <rename/>
+      </field>
+      <field>
+        <name>return_date</name>
+        <rename/>
+      </field>
+      <field>
+        <name>staff_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>store_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>create_date</name>
+        <rename/>
+      </field>
+      <field>
+        <name>inventory_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>cliente_id</name>
+        <rename>cliente_id_SK</rename>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>240</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort rows</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>rental_id</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>240</xloc>
+      <yloc>432</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Merge join 4</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step1>Sort rows</step1>
+    <step2>Sort por rental id (pagamento)</step2>
+    <keys_1>
+      <key>rental_id</key>
+    </keys_1>
+    <keys_2>
+      <key>rental_id</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>512</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Separa data retirada</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <failIfNoFile>Y</failIfNoFile>
+    <calculation>
+      <field_name>dia_retirada</field_name>
+      <calc_type>DAY_OF_MONTH</calc_type>
+      <field_a>rental_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>mes_retirada</field_name>
+      <calc_type>MONTH_OF_DATE</calc_type>
+      <field_a>rental_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>ano_retirada</field_name>
+      <calc_type>YEAR_OF_DATE</calc_type>
+      <field_a>rental_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>dia_semana_retirada</field_name>
+      <calc_type>DAY_OF_WEEK</calc_type>
+      <field_a>rental_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>trimestre_retirada</field_name>
+      <calc_type>QUARTER_OF_DATE</calc_type>
+      <field_a>rental_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>736</xloc>
+      <yloc>512</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Calcula duração do aluguel</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <failIfNoFile>Y</failIfNoFile>
+    <calculation>
+      <field_name>duracao</field_name>
+      <calc_type>DATE_DIFF</calc_type>
+      <field_a>return_date</field_a>
+      <field_b>rental_date</field_b>
+      <field_c/>
+      <value_type>None</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>544</xloc>
+      <yloc>512</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Calcula se data de retirada é fim de semana</name>
+    <type>Formula</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <formula>
+      <field_name>fds_SN_retirada</field_name>
+      <formula_string>IF(OR([dia_semana_retirada] = 1; [dia_semana_retirada] = 7); True(); Not(True()))</formula_string>
+      <value_type>Boolean</value_type>
+      <value_length>10</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field/>
+    </formula>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>992</xloc>
+      <yloc>512</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>SK_Data_Retirada</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>data_retirada_id_SK</valuename>
+    <use_database>N</use_database>
+    <connection/>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name>alala</counter_name>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1664</xloc>
+      <yloc>512</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Data de retirada pronta</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>trabalhodtw</connection>
+    <schema/>
+    <table>data</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>data_id</column_name>
+        <stream_name>data_retirada_id_SK</stream_name>
+      </field>
+      <field>
+        <column_name>dia</column_name>
+        <stream_name>dia_retirada</stream_name>
+      </field>
+      <field>
+        <column_name>mes</column_name>
+        <stream_name>mes_retirada</stream_name>
+      </field>
+      <field>
+        <column_name>ano</column_name>
+        <stream_name>ano_retirada</stream_name>
+      </field>
+      <field>
+        <column_name>trimestre</column_name>
+        <stream_name>trimestre_retirada</stream_name>
+      </field>
+      <field>
+        <column_name>fim_de_semanaSN</column_name>
+        <stream_name>fds_SN_retirada</stream_name>
+      </field>
+      <field>
+        <column_name>dia_da_semana</column_name>
+        <stream_name>dia_semana_retirada</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1792</xloc>
+      <yloc>432</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Datas de retiradas únicas</name>
+    <type>Unique</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>rental_date</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1472</xloc>
+      <yloc>512</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort por data de retirada</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>rental_date</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1232</xloc>
+      <yloc>512</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extrai SK da data de retirada</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>rental_date</name>
+        <rename/>
+      </field>
+      <field>
+        <name>data_retirada_id_SK</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2128</xloc>
+      <yloc>512</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Separa data retorno</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <failIfNoFile>Y</failIfNoFile>
+    <calculation>
+      <field_name>dia_retorno</field_name>
+      <calc_type>DAY_OF_MONTH</calc_type>
+      <field_a>return_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>mes_retorno</field_name>
+      <calc_type>MONTH_OF_DATE</calc_type>
+      <field_a>return_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>ano_retorno</field_name>
+      <calc_type>YEAR_OF_DATE</calc_type>
+      <field_a>return_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>dia_semana_retorno</field_name>
+      <calc_type>DAY_OF_WEEK</calc_type>
+      <field_a>return_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>trimestre_retorno</field_name>
+      <calc_type>QUARTER_OF_DATE</calc_type>
+      <field_a>return_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>736</xloc>
+      <yloc>704</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Calcula se data de retorno é fim de semana</name>
+    <type>Formula</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <formula>
+      <field_name>fds_SN_retorno</field_name>
+      <formula_string>IF(OR([dia_semana_retorno] = 1; [dia_semana_retorno] = 7); True(); Not(True()))</formula_string>
+      <value_type>Boolean</value_type>
+      <value_length>10</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field/>
+    </formula>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>960</xloc>
+      <yloc>704</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>SK_Data_Retorno</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>data_retorno_id_SK</valuename>
+    <use_database>N</use_database>
+    <connection/>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name>alala</counter_name>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1632</xloc>
+      <yloc>704</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Datas de retorno únicas</name>
+    <type>Unique</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>return_date</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1424</xloc>
+      <yloc>704</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort por data de retorno</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>return_date</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1216</xloc>
+      <yloc>704</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extrai SK da data de retorno</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>return_date</name>
+        <rename/>
+      </field>
+      <field>
+        <name>data_retorno_id_SK</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2000</xloc>
+      <yloc>704</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Data de retorno pronta</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>trabalhodtw</connection>
+    <schema/>
+    <table>data</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>data_id</column_name>
+        <stream_name>data_retorno_id_SK</stream_name>
+      </field>
+      <field>
+        <column_name>dia</column_name>
+        <stream_name>dia_retorno</stream_name>
+      </field>
+      <field>
+        <column_name>mes</column_name>
+        <stream_name>mes_retorno</stream_name>
+      </field>
+      <field>
+        <column_name>ano</column_name>
+        <stream_name>ano_retorno</stream_name>
+      </field>
+      <field>
+        <column_name>trimestre</column_name>
+        <stream_name>trimestre_retorno</stream_name>
+      </field>
+      <field>
+        <column_name>dia_da_semana</column_name>
+        <stream_name>dia_semana_retorno</stream_name>
+      </field>
+      <field>
+        <column_name>fim_de_semanaSN</column_name>
+        <stream_name>fds_SN_retorno</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1760</xloc>
+      <yloc>608</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Separa data Pagamento</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <failIfNoFile>Y</failIfNoFile>
+    <calculation>
+      <field_name>trimestre_pagamento</field_name>
+      <calc_type>QUARTER_OF_DATE</calc_type>
+      <field_a>payment_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>mes_pagamento</field_name>
+      <calc_type>MONTH_OF_DATE</calc_type>
+      <field_a>return_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>dia_semana_pagamento</field_name>
+      <calc_type>DAY_OF_WEEK</calc_type>
+      <field_a>payment_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>dia_pagamento</field_name>
+      <calc_type>DAY_OF_MONTH</calc_type>
+      <field_a>payment_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>ano_pagamento</field_name>
+      <calc_type>YEAR_OF_DATE</calc_type>
+      <field_a>payment_date</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Integer</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>736</xloc>
+      <yloc>864</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Calcula se data de pagamento é fim de semana</name>
+    <type>Formula</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <formula>
+      <field_name>fds_SN_retorno</field_name>
+      <formula_string>IF(OR([dia_semana_pagamento] = 1; [dia_semana_pagamento] = 7); True(); Not(True()))</formula_string>
+      <value_type>Boolean</value_type>
+      <value_length>10</value_length>
+      <value_precision>-1</value_precision>
+      <replace_field/>
+    </formula>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>960</xloc>
+      <yloc>864</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>SK_Data_Pagamento</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>data_pagamento_id_SK</valuename>
+    <use_database>N</use_database>
+    <connection/>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name>alala</counter_name>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1632</xloc>
+      <yloc>864</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Datas de pagamento únicas</name>
+    <type>Unique</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>return_date</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1424</xloc>
+      <yloc>864</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort por data de pagamento</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>payment_date</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1216</xloc>
+      <yloc>864</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extrai SK da data de pagamento</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>payment_date</name>
+        <rename/>
+      </field>
+      <field>
+        <name>data_pagamento_id_SK</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1856</xloc>
+      <yloc>864</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Data de pagamento pronta</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>trabalhodtw</connection>
+    <schema/>
+    <table>data</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>data_id</column_name>
+        <stream_name>data_pagamento_id_SK</stream_name>
+      </field>
+      <field>
+        <column_name>dia</column_name>
+        <stream_name>dia_pagamento</stream_name>
+      </field>
+      <field>
+        <column_name>mes</column_name>
+        <stream_name>mes_pagamento</stream_name>
+      </field>
+      <field>
+        <column_name>ano</column_name>
+        <stream_name>ano_pagamento</stream_name>
+      </field>
+      <field>
+        <column_name>trimestre</column_name>
+        <stream_name>trimestre_pagamento</stream_name>
+      </field>
+      <field>
+        <column_name>dia_da_semana</column_name>
+        <stream_name>dia_semana_pagamento</stream_name>
+      </field>
+      <field>
+        <column_name>fim_de_semanaSN</column_name>
+        <stream_name>fds_SN_retorno</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1760</xloc>
+      <yloc>768</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>rental_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>rental_date</name>
+        <rename/>
+      </field>
+      <field>
+        <name>return_date</name>
+        <rename/>
+      </field>
+      <field>
+        <name>staff_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>store_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>create_date</name>
+        <rename/>
+      </field>
+      <field>
+        <name>inventory_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>cliente_id_SK</name>
+        <rename/>
+      </field>
+      <field>
+        <name>payment_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>customer_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>amount</name>
+        <rename>valor_pago</rename>
+      </field>
+      <field>
+        <name>payment_date</name>
+        <rename/>
+      </field>
+      <field>
+        <name>duracao</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>576</xloc>
+      <yloc>976</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort por data de pagamento (Fato)</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>payment_date</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1856</xloc>
+      <yloc>960</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Junta FK data de pagamento</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step1>Extrai SK da data de pagamento</step1>
+    <step2>Sort por data de pagamento (Fato)</step2>
+    <keys_1>
+      <key>payment_date</key>
+    </keys_1>
+    <keys_2>
+      <key>payment_date</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2000</xloc>
+      <yloc>912</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort por data de retorno (Fato)</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>return_date</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2000</xloc>
+      <yloc>832</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Junta FK data de retorno</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step1>Extrai SK da data de retorno</step1>
+    <step2>Sort por data de retorno (Fato)</step2>
+    <keys_1>
+      <key>return_date</key>
+    </keys_1>
+    <keys_2>
+      <key>return_date</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2128</xloc>
+      <yloc>752</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort por data de retirada (fato)</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>return_date</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2128</xloc>
+      <yloc>608</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Junta FK data de retirada</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step1>Extrai SK da data de retirada</step1>
+    <step2>Sort por data de retirada (fato)</step2>
+    <keys_1>
+      <key>rental_date</key>
+    </keys_1>
+    <keys_2>
+      <key>rental_date</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2256</xloc>
+      <yloc>560</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
