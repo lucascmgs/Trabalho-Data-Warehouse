@@ -31,7 +31,7 @@ CREATE TABLE Data (
 CREATE TABLE Filme (
     filme_id INT NOT NULL,
     titulo VARCHAR(50),
-    ano_de_lancamento DATE NOT NULL,
+    ano_de_lancamento UNSIGNED NOT NULL,
     classificacao_etaria INT NOT NULL,
     custo DECIMAL NOT NULL,
     duracao_mins INT NOT NULL,
