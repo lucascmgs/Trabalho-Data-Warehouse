@@ -31,8 +31,8 @@ CREATE TABLE Data (
 CREATE TABLE Filme (
     filme_id INT NOT NULL,
     titulo VARCHAR(50),
-    ano_de_lancamento UNSIGNED NOT NULL,
-    classificacao_etaria INT NOT NULL,
+    ano_de_lancamento DECIMAL NOT NULL,
+    classificacao_etaria VARCHAR(10) NOT NULL,
     custo DECIMAL NOT NULL,
     duracao_mins INT NOT NULL,
     preco_por_dia DECIMAL NOT NULL,
@@ -52,10 +52,10 @@ CREATE TABLE Funcionario (
 CREATE TABLE Loja (
     loja_id INT NOT NULL,
     endereco_1 VARCHAR(70) NOT NULL,
-    endereco_2 VARCHAR(70) NOT NULL,
+    endereco_2 VARCHAR(70),
     distrito VARCHAR(30) NOT NULL,
     cidade VARCHAR(30) NOT NULL,
-    codigo_postal INT NOT NULL,
+    codigo_postal INT,
     PRIMARY KEY (loja_id)
 );
 
